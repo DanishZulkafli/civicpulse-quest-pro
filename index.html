@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>CivicPulse Quest</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">Interactive GitHub Pages Project</span>
+        <h1>CivicPulse Quest</h1>
+        <p>
+          Complete positive community missions, earn impact points, unlock ranks,
+          track your contribution categories, and build real-world social good habits.
+        </p>
+
+        <div class="hero-actions">
+          <button onclick="generateMission()">Generate Mission</button>
+          <button class="ghost" onclick="exportCSV()">Export CSV</button>
+          <button class="danger" onclick="resetAll()">Reset Progress</button>
+        </div>
+      </div>
+
+      <div class="rank-card">
+        <span>Current Rank</span>
+        <h2 id="currentRank">Starter Citizen</h2>
+        <p><strong id="totalPointsHero">0</strong> impact points</p>
+
+        <div class="rank-progress">
+          <div id="rankProgressBar"></div>
+        </div>
+
+        <small id="nextRankText">Next Rank: Helpful Neighbor</small>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span>Total Points</span>
+        <strong id="totalPoints">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Missions Completed</span>
+        <strong id="completedMissions">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Impact Categories</span>
+        <strong id="impactCategories">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Next Rank Progress</span>
+        <strong id="nextRankProgress">0%</strong>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>Mission Generator</h2>
+
+        <div id="missionBox" class="empty-box">
+          <h3>No active mission yet</h3>
+          <p>Click generate to receive a new community impact challenge.</p>
+          <button onclick="generateMission()">Generate Mission</button>
+        </div>
+
+        <div class="ai-box">
+          <h3>AI-Style Insight</h3>
+          <p id="aiInsight">
+            Start by generating one mission. Choose a small action first to build momentum.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Create Custom Mission</h2>
+
+        <label for="customTitle">Mission Title</label>
+        <input id="customTitle" type="text" placeholder="Example: Help junior student learn GitHub" />
+
+        <label for="customCategory">Category</label>
+        <select id="customCategory">
+          <option>Community Support</option>
+          <option>Education</option>
+          <option>Technology Help</option>
+          <option>Career Support</option>
+          <option>Environment</option>
+          <option>Donation</option>
+          <option>Mentorship</option>
+          <option>Wellbeing</option>
+          <option>Design Help</option>
+        </select>
+
+        <label for="customPoints">Impact Points</label>
+        <input id="customPoints" type="number" value="40" />
+
+        <button onclick="addCustomMission()">Add Completed Mission</button>
+
+        <div class="category-box">
+          <h3>Impact Breakdown</h3>
+          <div id="categoryStats">
+            <p class="muted">No category data yet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="history-header">
+        <div>
+          <h2>Mission History</h2>
+          <p>Search, filter, review, and manage your completed impact missions.</p>
+        </div>
+
+        <div class="filters">
+          <input id="searchInput" type="text" placeholder="Search missions..." oninput="renderApp()" />
+
+          <select id="filterCategory" onchange="renderApp()">
+            <option>All</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="missionHistory" class="mission-grid">
+        <div class="empty-box wide">
+          <h3>No missions found</h3>
+          <p>Complete a mission or adjust your search/filter.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
