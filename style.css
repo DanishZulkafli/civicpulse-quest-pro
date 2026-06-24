@@ -20,7 +20,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -53,8 +54,7 @@ button {
 .hero::after {
   content: "";
   position: absolute;
-  right: -120px;
-  bottom: -180px;
+  inset: auto -120px -180px auto;
   width: 360px;
   height: 360px;
   background: #22c55e;
@@ -63,7 +63,8 @@ button {
   border-radius: 999px;
 }
 
-.hero-content {
+.hero-content,
+.rank-card {
   position: relative;
   z-index: 1;
 }
@@ -125,13 +126,16 @@ button.danger {
   color: white;
 }
 
+button.secondary {
+  background: #22c55e;
+  color: #052e16;
+}
+
 button.full {
   width: 100%;
 }
 
 .rank-card {
-  position: relative;
-  z-index: 1;
   background: rgba(255, 255, 255, 0.94);
   color: #0f172a;
   border-radius: 28px;
@@ -201,7 +205,7 @@ button.full {
 }
 
 .stat-card strong {
-  font-size: 34px;
+  font-size: 30px;
   color: #2563eb;
 }
 
@@ -211,25 +215,86 @@ button.full {
   gap: 24px;
 }
 
+.layout.second {
+  margin-top: 24px;
+}
+
 .panel h2,
 .history-section h2 {
   margin-top: 0;
 }
 
+label {
+  display: block;
+  margin: 15px 0 8px;
+  font-weight: 900;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 15px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  outline: none;
+}
+
+textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.generator-controls,
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.panel > button {
+  width: 100%;
+  margin-top: 16px;
+}
+
 .mission-feature,
 .empty-box,
 .ai-box,
-.category-box {
+.badge-box,
+.report-box {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 22px;
   padding: 20px;
 }
 
+.mission-feature,
+.empty-box {
+  margin-top: 18px;
+}
+
+.ai-box,
+.badge-box,
+.report-box {
+  margin-top: 18px;
+  border-left: 6px solid #38bdf8;
+}
+
+.badge-box {
+  border-left-color: #7c3aed;
+}
+
+.report-box {
+  border-left-color: #22c55e;
+}
+
 .mission-feature h3,
-.empty-box h3 {
+.empty-box h3,
+.report-box h3 {
   font-size: 25px;
-  margin: 18px 0 8px;
+  margin: 14px 0 8px;
 }
 
 .mission-feature p,
@@ -237,6 +302,7 @@ button.full {
 .ai-box p,
 .history-header p,
 .mission-card p,
+.report-box p,
 .muted {
   color: #64748b;
   line-height: 1.7;
@@ -259,6 +325,16 @@ button.full {
   color: #92400e;
 }
 
+.pill.green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pill.red {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
 .mission-meta {
   display: flex;
   gap: 10px;
@@ -275,35 +351,25 @@ button.full {
   font-size: 13px;
 }
 
-.ai-box,
-.category-box {
-  margin-top: 18px;
+.steps-list {
+  padding-left: 20px;
+  line-height: 1.8;
+  color: #475569;
 }
 
-.ai-box {
-  border-left: 6px solid #38bdf8;
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-label {
-  display: block;
-  margin: 15px 0 8px;
+.unlock-badge {
+  background: #ede9fe;
+  color: #5b21b6;
+  padding: 8px 12px;
+  border-radius: 999px;
   font-weight: 900;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 14px;
-  border-radius: 15px;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  color: #0f172a;
-  outline: none;
-}
-
-.panel > button {
-  width: 100%;
-  margin-top: 16px;
+  font-size: 13px;
 }
 
 .bar-row {
@@ -333,6 +399,35 @@ select {
   background: linear-gradient(90deg, #22c55e, #38bdf8, #7c3aed);
 }
 
+.trend-box {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  min-height: 150px;
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+}
+
+.trend-bar {
+  flex: 1;
+  min-width: 24px;
+  background: linear-gradient(180deg, #38bdf8, #7c3aed);
+  border-radius: 10px 10px 4px 4px;
+  position: relative;
+}
+
+.trend-bar span {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .history-section {
   margin-top: 24px;
 }
@@ -347,7 +442,7 @@ select {
 
 .filters {
   display: grid;
-  grid-template-columns: 230px 210px;
+  grid-template-columns: 220px 190px 190px;
   gap: 10px;
 }
 
@@ -370,8 +465,40 @@ select {
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
 }
 
+.mission-card button {
+  width: 100%;
+  margin-top: 12px;
+}
+
 .empty-box.wide {
   grid-column: 1 / -1;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .hero-actions,
+  .panel:first-child,
+  .panel:nth-child(2),
+  .filters,
+  .mission-card button {
+    display: none;
+  }
+
+  .hero,
+  .layout,
+  .layout.second {
+    display: block;
+  }
+
+  .panel,
+  .history-section,
+  .stat-card {
+    box-shadow: none;
+    margin-bottom: 18px;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -402,7 +529,9 @@ select {
 
   .stats-grid,
   .mission-grid,
-  .filters {
+  .filters,
+  .mini-grid,
+  .generator-controls {
     grid-template-columns: 1fr;
   }
 
