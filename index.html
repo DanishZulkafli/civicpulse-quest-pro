@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>CivicPulse Quest</title>
+  <title>CivicPulse Quest Pro</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,15 +12,17 @@
     <section class="hero">
       <div class="hero-content">
         <span class="eyebrow">Interactive GitHub Pages Project</span>
-        <h1>CivicPulse Quest</h1>
+        <h1>CivicPulse Quest Pro</h1>
         <p>
-          Complete positive community missions, earn impact points, unlock ranks,
-          track your contribution categories, and build real-world social good habits.
+          Complete positive community missions, track real impact, earn badges,
+          monitor your weekly consistency, and generate an impact report for your portfolio.
         </p>
 
         <div class="hero-actions">
           <button onclick="generateMission()">Generate Mission</button>
+          <button class="ghost" onclick="loadDemoData()">Load Demo Data</button>
           <button class="ghost" onclick="exportCSV()">Export CSV</button>
+          <button class="ghost" onclick="exportJSON()">Export JSON</button>
           <button class="danger" onclick="resetAll()">Reset Progress</button>
         </div>
       </div>
@@ -50,19 +52,61 @@
       </div>
 
       <div class="stat-card">
+        <span>People Impacted</span>
+        <strong id="peopleImpacted">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Hours Contributed</span>
+        <strong id="hoursContributed">0h</strong>
+      </div>
+
+      <div class="stat-card">
         <span>Impact Categories</span>
         <strong id="impactCategories">0</strong>
       </div>
 
       <div class="stat-card">
-        <span>Next Rank Progress</span>
-        <strong id="nextRankProgress">0%</strong>
+        <span>Current Streak</span>
+        <strong id="currentStreak">0 days</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Weekly Missions</span>
+        <strong id="weeklyMissions">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Impact Score</span>
+        <strong id="impactScore">0%</strong>
       </div>
     </section>
 
     <section class="layout">
       <div class="panel">
         <h2>Mission Generator</h2>
+
+        <div class="generator-controls">
+          <label for="missionFocus">Mission Focus</label>
+          <select id="missionFocus">
+            <option>Any</option>
+            <option>Education</option>
+            <option>Technology Help</option>
+            <option>Career Support</option>
+            <option>Environment</option>
+            <option>Wellbeing</option>
+            <option>Design Help</option>
+            <option>Mentorship</option>
+          </select>
+
+          <label for="missionDifficulty">Difficulty</label>
+          <select id="missionDifficulty">
+            <option>Any</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+        </div>
 
         <div id="missionBox" class="empty-box">
           <h3>No active mission yet</h3>
@@ -71,10 +115,17 @@
         </div>
 
         <div class="ai-box">
-          <h3>AI-Style Insight</h3>
+          <h3>AI-Style Impact Insight</h3>
           <p id="aiInsight">
             Start by generating one mission. Choose a small action first to build momentum.
           </p>
+        </div>
+
+        <div class="badge-box">
+          <h3>Unlocked Badges</h3>
+          <div id="badgeList" class="badge-list">
+            <span class="muted">No badges unlocked yet.</span>
+          </div>
         </div>
       </div>
 
@@ -95,18 +146,75 @@
           <option>Mentorship</option>
           <option>Wellbeing</option>
           <option>Design Help</option>
+          <option>Community Safety</option>
+          <option>Knowledge Sharing</option>
         </select>
 
-        <label for="customPoints">Impact Points</label>
-        <input id="customPoints" type="number" value="40" />
+        <div class="mini-grid">
+          <div>
+            <label for="customDifficulty">Difficulty</label>
+            <select id="customDifficulty">
+              <option>Easy</option>
+              <option>Medium</option>
+              <option>Hard</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="customPoints">Impact Points</label>
+            <input id="customPoints" type="number" value="40" />
+          </div>
+
+          <div>
+            <label for="customPeople">People Impacted</label>
+            <input id="customPeople" type="number" value="1" />
+          </div>
+
+          <div>
+            <label for="customHours">Hours Spent</label>
+            <input id="customHours" type="number" step="0.5" value="1" />
+          </div>
+        </div>
+
+        <label for="customDescription">Mission Description</label>
+        <textarea id="customDescription" placeholder="Briefly explain the positive action that was completed..."></textarea>
+
+        <label for="customReflection">Reflection / Result</label>
+        <textarea id="customReflection" placeholder="What happened? What changed? What did you learn?"></textarea>
 
         <button onclick="addCustomMission()">Add Completed Mission</button>
+      </div>
+    </section>
 
-        <div class="category-box">
-          <h3>Impact Breakdown</h3>
-          <div id="categoryStats">
-            <p class="muted">No category data yet.</p>
-          </div>
+    <section class="layout second">
+      <div class="panel">
+        <h2>Impact Breakdown</h2>
+        <div id="categoryStats">
+          <p class="muted">No category data yet.</p>
+        </div>
+
+        <h3>Difficulty Breakdown</h3>
+        <div id="difficultyStats">
+          <p class="muted">No difficulty data yet.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Impact Report</h2>
+
+        <div class="report-box">
+          <h3>Portfolio Summary</h3>
+          <p id="impactSummary">
+            Complete missions to generate a meaningful community impact summary.
+          </p>
+        </div>
+
+        <button onclick="copyImpactSummary()">Copy Summary</button>
+        <button class="secondary" onclick="printReport()">Print Report</button>
+
+        <h3>Weekly Trend</h3>
+        <div id="weeklyTrend" class="trend-box">
+          <p class="muted">No weekly trend yet.</p>
         </div>
       </div>
     </section>
@@ -123,6 +231,14 @@
 
           <select id="filterCategory" onchange="renderApp()">
             <option>All</option>
+          </select>
+
+          <select id="filterDifficulty" onchange="renderApp()">
+            <option>All Difficulty</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+            <option>Custom</option>
           </select>
         </div>
       </div>
