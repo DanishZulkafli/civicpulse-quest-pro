@@ -1,6 +1,6 @@
-# CivicPulse Quest
+# CivicPulse Quest Pro
 
-CivicPulse Quest is an interactive community impact tracker that helps users complete positive missions, earn impact points, unlock ranks, track contribution categories, and receive AI-style recommendations.
+CivicPulse Quest Pro is an interactive community impact tracker that helps users complete positive missions, earn impact points, unlock ranks, monitor weekly consistency, and generate a portfolio-ready impact report.
 
 This project is built using HTML, CSS, JavaScript, and LocalStorage. It can be deployed directly using GitHub Pages without GitHub Actions.
 
@@ -11,16 +11,34 @@ Live project: https://danishzulkafli.github.io/civicpulse-quest/
 ## Features
 
 - Random community mission generator
+- Mission focus filter
+- Mission difficulty filter
+- Detailed mission steps
+- Suggested proof of completion
 - Custom mission creation
+- Mission description and reflection logging
 - Impact points system
 - Rank progression system
-- AI-style contribution insight
-- Category impact breakdown
-- Mission history
+- People impacted tracking
+- Hours contributed tracking
+- Current streak tracking
+- Weekly mission tracking
+- Impact score calculation
+- AI-style impact insight
+- Category breakdown
+- Difficulty breakdown
+- Weekly trend visualization
+- Unlockable badges
+- Portfolio impact summary
+- Copy impact summary
+- Print impact report
 - Search missions
 - Filter by category
+- Filter by difficulty
 - Delete mission
+- Load demo data
 - Export mission history as CSV
+- Export mission history as JSON
 - Reset progress
 - LocalStorage persistence
 - Responsive unique interface
@@ -35,6 +53,7 @@ Live project: https://danishzulkafli.github.io/civicpulse-quest/
 - Organize a mini clean-up mission
 - Donate useful items
 - Mentor a beginner developer
+- Report a safety or facility issue
 
 ## Tech Stack
 
@@ -46,7 +65,7 @@ Live project: https://danishzulkafli.github.io/civicpulse-quest/
 
 ## Purpose
 
-This project was created as a creative and community-focused portfolio project. It encourages users to perform small but meaningful social good actions while demonstrating frontend development, gamification, LocalStorage usage, export functionality, and responsive web design.
+This project was created as a creative and community-focused portfolio project. It encourages users to perform small but meaningful social good actions while demonstrating frontend development, dashboard statistics, gamification, data export, LocalStorage usage, and responsive web design.
 
 ## Future Improvements
 
@@ -58,6 +77,8 @@ This project was created as a creative and community-focused portfolio project. 
 - Monthly impact report
 - PWA offline mode
 - Volunteer organization dashboard
+- Badge sharing image generator
+- Impact certificate generator
 
 ## Author
 
